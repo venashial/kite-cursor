@@ -22,7 +22,7 @@ function resizeCanvas() {
         // Do nothing, extension not installed or lacks permissions
     }
 
-    if (!document.getElementById('kite-cursor') && disabled) {
+    if (!document.getElementById('kite-cursor') && !disabled) {
         resizeCanvas()
 
         document.body.appendChild(canvas)
