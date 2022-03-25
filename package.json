@@ -1,6 +1,6 @@
 {
   "name": "kite-cursor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A kite that follows your cursor!",
   "browser": "bin/browser.js",
   "module": "bin/module.js",

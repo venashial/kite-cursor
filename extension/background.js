@@ -12,5 +12,7 @@ browser.browserAction.onClicked.addListener(async () => {
         await browser.storage.sync.set({
             disabled,
         });
+    } catch {
+        // Do nothing
     }
 });
