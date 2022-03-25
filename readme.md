@@ -1,4 +1,4 @@
-# Kite Cursor!
+# Kite Cursor! <img alt="Video showing the kite following the cursor" align="right" src="https://user-images.githubusercontent.com/44736536/160082205-e8da9516-f5bc-4262-bed9-0ff9ed4f2aea.gif" />
 
 *Make a little kite follow your cursor around!*
 
@@ -57,4 +57,4 @@ pnpm build # Build docs site
 
 ### Credits!
 
-Thanks to @guerrillacontra for their [rope](https://codepen.io/guerrillacontra/pen/zJaREd) and [canvas lib](https://codepen.io/guerrillacontra/pen/zJaREd) codepens. This project uses that source code but refactored to use Typescript and specialized functions.
+Thanks to [@guerrillacontra](https://github.com/guerrillacontra/) for their [rope](https://codepen.io/guerrillacontra/pen/zJaREd) and [canvas lib](https://codepen.io/guerrillacontra/pen/zJaREd) codepens. This project uses that source code but refactored to use Typescript and specialized functions. Plus the fun kite parts!
