@@ -1,21 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
-    "strict": true,
-    "sourceMap": true,
+    "moduleResolution": "node",
+    "module": "es2020",
+    "lib": ["es2020", "DOM"],
+    "target": "es2020",
+    "importsNotUsedAsValues": "error",
+    "preserveValueImports": true,
+    "isolatedModules": true,
     "resolveJsonModule": true,
+    "sourceMap": true,
     "esModuleInterop": true,
-    "noEmit": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "..",
+    "allowJs": true,
+    "checkJs": true,
+    "useDefineForClassFields": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "declaration": true,
+    "declarationDir": "dts",
+    "emitDeclarationOnly": true
   },
-  "include": [
-    "src",
-    "examples/vite-ts/src"
-  ]
+  "include": ["./src/**/*.js", "./src/**/*.ts"],
+  "exclude": ["./node_modules/**"]
 }

@@ -1,55 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap"
+      rel="stylesheet"
+    />
     <title>kite-cursor | A kite cursor</title>
     <style>
-        html {
-            background-color: black;
-        }
+      html {
+        background-color: black;
+      }
 
-        body {
-            color: white;
-            font-family: 'Dela Gothic One', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      body {
+        color: white;
+        font-family: "Dela Gothic One", Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-        h1 {
-            font-size: 200px;
-            text-align: center;
-            height: 1800px;
+      h1 {
+        font-size: 200px;
+        text-align: center;
+        height: 1800px;
 
-            background: linear-gradient(to right, yellow 20%, green 40%, blue 60%, red 80%, yellow);
-            background-size: 100vw 100vh;
-            color: white;
-            background-clip: text;
-            text-fill-color: transparent;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 7s linear infinite;
-        }
+        background: linear-gradient(
+          to right,
+          yellow 20%,
+          green 40%,
+          blue 60%,
+          red 80%,
+          yellow
+        );
+        background-size: 100vw 100vh;
+        color: white;
+        background-clip: text;
+        text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 7s linear infinite;
+      }
 
-        @keyframes shine {
-            to {
-                background-position: 100vw center;
-            }
+      @keyframes shine {
+        to {
+          background-position: 100vw center;
         }
+      }
     </style>
-</head>
-<body>
-<main>
-    <h1>Kite<br/>Cursor</h1>
-</main>
-<script type="module">
-    import '../../index.ts'
-</script>
-</body>
+  </head>
+  <body>
+    <main>
+      <h1>Kite<br />Cursor</h1>
+    </main>
+    <script type="module">
+      import "../../src";
+    </script>
+  </body>
 </html>

@@ -1,8 +1,8 @@
-name: Deploy
+name: Deploy Docs
 on:
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   deploy:
@@ -19,8 +19,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "14"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Cache pnpm modules
         uses: actions/cache@v2
@@ -34,11 +34,11 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: pnpm build:docs
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
-          folder: 'examples/vite/dist'
+          folder: "examples/vite/dist"
           clean: true

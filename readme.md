@@ -2,39 +2,46 @@
 
 [Try it out on the DEMO → ![](extension/icons/16.png)](https://kite.venashial.design/)
 
-*Make a little kite follow your cursor around!*
+_Make a little kite follow your cursor around!_
 
-*Physics, gravity, and more included!*
+_Physics, gravity, and more included!_
 
-*Comes in a dashing red, yellow, green, and blue!*
+_Comes in a dashing red, yellow, green, and blue!_
 
-*Fly your kite with no fright with easy importing!*
+_Fly your kite with no fright with easy importing!_
 
-## Usage!
+### Browser extension
 
-#### Browser extension
+#### Firefox
 
-*Coming soon ![](extension/icons/16.png)*
+Install the Firefox extension from [Kite Cursor page on Firefox Addons.](https://addons.mozilla.org/en-US/firefox/addon/kite-cursor/)
+
+_Chrome, Edge, & others coming soon ![](extension/icons/16.png)_
+
+### Import usage
 
 #### Vanilla JS (~4kb)
 
 Add this script to the bottom of your `<body>` element:
+
 ```html
-<script src="https://cdn.jsdelivr.net/npm/kite-cursor/bin/browser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kite-cursor/bin/minified.js"></script>
 ```
 
 #### NPM (with Typescript)
 
 Add this to anywhere TS gets run:
+
 ```ts
-import 'kite-cursor'
+import "kite-cursor";
 ```
 
 #### NPM (without Typescript)
 
 Add this to anywhere JS gets run:
+
 ```js
-import 'kite-cursor/bin/module.js'
+import "kite-cursor/bin/module.js";
 ```
 
 ## Developing!
@@ -50,7 +57,7 @@ pnpm install # Install dependencies
 ```sh
 pnpm dev # Run docs site locally for testing
 pnpm package # Combines src/ into package
-pnpm build # Build docs site
+pnpm docs:build # Build docs site
 ```
 
 ### Packaging extension
