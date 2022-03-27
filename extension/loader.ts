@@ -1,23 +1,39 @@
-import "webextension-polyfill";
+import { KiteCursor } from "../src";
+
+declare var browser: any;
+declare var chrome: any;
+
+let ext: any;
+
+if (typeof browser === "undefined") {
+  ext = chrome;
+} else {
+  ext = browser;
+}
 
 (async () => {
   let disabled = false;
   try {
-    // @ts-ignore: `browser` in global namespace
-    disabled = (await browser.storage.sync.get("disabled")).disabled;
+    disabled = (await ext.storage.sync.get("disabled")).disabled;
   } catch {
     // Do nothing, extension lacks permissions
   }
-  console.log((await browser.storage.sync.get("disabled")).disabled)
-  console.log({disabled})
 
-  if (!disabled) {
-    console.log('not disabled')
-    await import("../src/index");
+  const kiteCursor = new KiteCursor();
+
+  if (disabled) {
+    kiteCursor.hide();
   }
-})();
 
-/*
- * TODO: Make module export some `start()` function
- * TODO: Make minified version run `start()` be default
- */
+  ext.runtime.onMessage.addListener(
+    (message: { disabled: any }, sendResponse: (_: any) => void) => {
+      if (message?.disabled) {
+        kiteCursor.hide();
+      } else {
+        kiteCursor.show();
+      }
+
+      sendResponse(true); // Fixes Chrome bug
+    }
+  );
+})();

@@ -24,6 +24,6 @@
     "declarationDir": "dts",
     "emitDeclarationOnly": true
   },
-  "include": ["./src/**/*.js", "./src/**/*.ts"],
+  "include": ["./src/**/*.js", "./src/**/*.ts", "./extension/**/*.ts"],
   "exclude": ["./node_modules/**"]
 }

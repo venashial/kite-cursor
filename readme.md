@@ -10,41 +10,39 @@ _Comes in a dashing red, yellow, green, and blue!_
 
 _Fly your kite with no fright with easy importing!_
 
-### Browser extension
+## 🧩 Browser extension
 
-#### Firefox
+### Firefox
 
-Install the Firefox extension from [Kite Cursor page on Firefox Addons.](https://addons.mozilla.org/en-US/firefox/addon/kite-cursor/)
+Install the Firefox extension from the [Kite Cursor page on Firefox Addons.](https://addons.mozilla.org/en-US/firefox/addon/kite-cursor/)
 
-_Chrome, Edge, & others coming soon ![](extension/icons/16.png)_
+### Chrome, Edge, & Brave
 
-### Import usage
+> The extension is currently under review on the Chrome Web Store. For now, you have to build the project locally, and install the unpacked extension from the folder `dist/extension/v3`
 
-#### Vanilla JS (~4kb)
+## 🚚 Import usage
 
-Add this script to the bottom of your `<body>` element:
+### NPM
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/kite-cursor/bin/minified.js"></script>
+Install it:
+
+```bash
+npm install kite-curor
 ```
 
-#### NPM (with Typescript)
-
-Add this to anywhere TS gets run:
-
-```ts
-import "kite-cursor";
-```
-
-#### NPM (without Typescript)
-
-Add this to anywhere JS gets run:
+Add this to start `KiteCursor`:
 
 ```js
-import "kite-cursor/bin/module.js";
+import { KiteCursor } from "kite-cursor";
+
+new KiteCursor();
 ```
 
-## Developing!
+### Plain JS
+
+> There are currently no plain JS imports. You can import an older version with: `<script src="https://cdn.jsdelivr.net/npm/kite-cursor@0.0.1/bin/minified.js"></script>`
+
+## 💻 Developing
 
 First, make sure [NodeJS](https://nodejs.org/en/download/package-manager/) & [pnpm](https://pnpm.io/installation#nodejs-is-preinstalled) are installed, then run:
 
@@ -52,7 +50,20 @@ First, make sure [NodeJS](https://nodejs.org/en/download/package-manager/) & [pn
 pnpm install # Install dependencies
 ```
 
-#### Available commands:
+### Packaging extension
+
+Package the extension by running:
+
+```sh
+pnpm package
+```
+
+Then, compress the outputs to `.zips`:
+
+- `dist/extension/v2` for Firefox
+- `dist/extension/v2` for Chromium
+
+### Development commands:
 
 ```sh
 pnpm dev # Run docs site locally for testing
@@ -60,16 +71,6 @@ pnpm package # Combines src/ into package
 pnpm docs:build # Build docs site
 ```
 
-### Packaging extension
-
-First minify `index.ts` to `extension/kite-cursor.js` with:
-
-```sh
-pnpm package
-```
-
-Then, compress all the files in `extension` to a `.zip`.
-
-## Credits!
+## 👥 Credits
 
 Thanks to [@guerrillacontra](https://github.com/guerrillacontra/) for their [rope](https://codepen.io/guerrillacontra/pen/zJaREd) and [canvas lib](https://codepen.io/guerrillacontra/pen/zJaREd) codepens. This project uses that source code but refactored to use Typescript and specialized functions. Plus the fun kite parts!

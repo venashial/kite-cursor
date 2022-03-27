@@ -1,39 +1,50 @@
-import 'webextension-polyfill'
+declare var browser: any;
+declare var chrome: any;
 
-// @ts-ignore: `browser` in global namespace
-(browser.browserAction ?? chrome.action).onClicked.addListener(async () => {
-    let disabled = false
+let ext: any;
+if (typeof browser === "undefined") {
+  ext = chrome;
+} else {
+  ext = browser;
+}
 
-    try {
-        // @ts-ignore: `browser` in global namespace
-        disabled = !(await browser.storage.sync.get('disabled')).disabled
-    } catch {
-        // Do nothing
-    }
+let browserAction = ext.action ?? ext.browserAction;
 
-    // try {
-    //     // @ts-ignore: `browser` in global namespace
-    //     await (browser.browserAction ?? chrome.action).setIcon({
-    //         path: {
-    //             16: `icons/${disabled ? 'gray-' : ''}16.png`,
-    //             32: `icons/${disabled ? 'gray-' : ''}32.png`,
-    //         },
-    //     })
-    // } catch {
-    //     // Do nothing
-    // }
+browserAction.onClicked.addListener(async () => {
+  let disabled = false;
 
+  try {
+    disabled = !(await ext.storage.sync.get("disabled")).disabled;
+  } catch (error) {
+    // Do nothing
+  }
+
+  const tabs = await ext.tabs.query({
+    currentWindow: true,
+    active: true,
+  });
+
+  for (const tab of tabs) {
+    await ext.tabs.sendMessage(tab.id, { disabled });
+  }
+
+  try {
     // @ts-ignore: `browser` in global namespace
-    await browser.storage.sync.set({
-        disabled,
+    await browserAction.setIcon({
+      path: {
+        16: `icons/16${disabled ? "-gray" : ""}.png`,
+        32: `icons/32${disabled ? "-gray" : ""}.png`,
+      },
     });
+  } catch {
+    // Do nothing
+  }
 
-    console.log(`Extension ${disabled}`);
+  await ext.storage.sync.set({
+    disabled,
+  });
 
-    if (disabled) {
-        (browser.browserAction ?? chrome.action).setBadgeText({text: 'Disabled'});
-        (browser.browserAction ?? chrome.action).setBadgeBackgroundColor({color: "red"});
-    } else {
-        (browser.browserAction ?? chrome.action).setBadgeText({text: ''});
-    }
-})
+  console.log(`Extension is ${disabled ? "disabled" : "enabled"}`);
+});
+
+export {};

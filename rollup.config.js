@@ -1,10 +1,12 @@
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import manifestJson from "rollup-plugin-manifest-json";
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import copy from 'rollup-plugin-copy'
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
 import pkg from "./package.json";
+import json from "@rollup/plugin-json";
+import del from "rollup-plugin-delete";
 
 const manifestBase = {
   name: "Kite Cursor",
@@ -34,13 +36,6 @@ export default [
     plugins: [typescript({ tsconfig: "./tsconfig.json" })],
   },
 
-  // Module Types
-  {
-    input: "./dist/dts/index.d.ts",
-    output: [{ file: pkg.types, format: "es" }],
-    plugins: [dts()],
-  },
-
   // Minified (for browser)
   {
     input: "./dist/module.js",
@@ -67,11 +62,75 @@ export default [
         format: "es",
       },
     ],
+    plugins: [typescript(), nodeResolve(), terser()],
+  },
+
+  // Extension loader
+  {
+    input: "./extension/loader.ts",
+    output: [
+      {
+        file: "dist/extension/v2/loader.js",
+        format: "umd",
+        inlineDynamicImports: true,
+      },
+      {
+        file: "dist/extension/v3/loader.js",
+        format: "es",
+        inlineDynamicImports: true,
+      },
+    ],
+    plugins: [typescript(), nodeResolve(), terser()],
+  },
+
+  // Extension v2 manifest
+  {
+    input: "./rollup.config.js",
+    output: [
+      {
+        file: "dist/extension/v2/temp",
+      },
+    ],
     plugins: [
-      typescript(),
-      nodeResolve(),
-      terser(),
-      // Extension v3 manifest
+      json(),
+      manifestJson({
+        input: "extension/manifest.json",
+        output: "dist/extension/v2/manifest.json",
+        minify: true,
+        manifest: {
+          ...manifestBase,
+          manifest_version: 2,
+          background: {
+            scripts: ["background.js"],
+          },
+          browser_action: {
+            browser_style: true,
+            default_icon: {
+              16: "icons/16.png",
+              32: "icons/32.png",
+            },
+            default_title: "Kite Cursor",
+          },
+          browser_specific_settings: {
+            gecko: {
+              id: "{6e191de1-3729-4d14-a1a7-5afc5d09544f}",
+            },
+          },
+        },
+      }),
+    ],
+  },
+
+  // Extension v3 manifest
+  {
+    input: "./rollup.config.js",
+    output: [
+      {
+        file: "dist/extension/v3/temp",
+      },
+    ],
+    plugins: [
+      json(),
       manifestJson({
         input: "extension/manifest.json",
         output: "dist/extension/v3/manifest.json",
@@ -92,53 +151,30 @@ export default [
           },
         },
       }),
-      copy({
-        targets: [
-          { src: 'extension/icons', dest: 'dist/extension/v2' },
-          { src: 'extension/icons', dest: 'dist/extension/v3' }
-        ]
-      })
     ],
   },
 
-  // Extension loader
+  // Copy extension icons
   {
-    input: "./extension/loader.ts",
-    output: [
-      {
-        file: "dist/extension/v2/loader.js",
-        format: "umd",
-        inlineDynamicImports: true,
-      },
-      {
-        file: "dist/extension/v3/loader.js",
-        format: "es",
-        inlineDynamicImports: true,
-      },
-    ],
-    plugins: [typescript(), nodeResolve(), terser(),
-
-      // Extension v2 manifest
-      manifestJson({
-        input: "extension/manifest.json",
-        output: "dist/extension/v2/manifest.json",
-        minify: true,
-        manifest: {
-          ...manifestBase,
-          manifest_version: 2,
-          background: {
-            scripts: ["background.js"],
-          },
-          browser_action: {
-            browser_style: true,
-            default_icon: {
-              16: "icons/16.png",
-              32: "icons/32.png",
-            },
-            default_title: "Kite Cursor",
-          },
-        },
+    input: "./rollup.config.js",
+    output: [],
+    plugins: [
+      json(),
+      copy({
+        targets: [
+          { src: "extension/icons", dest: "dist/extension/v2" },
+          { src: "extension/icons", dest: "dist/extension/v3" },
+        ],
       }),
+      // Delete temp files
+      del({ targets: ["dist/extension/v2/temp", "dist/extension/v3/temp"] }),
     ],
+  },
+
+  // Module Types
+  {
+    input: "./dist/dts/index.d.ts",
+    output: [{ file: pkg.types, format: "es" }],
+    plugins: [dts()],
   },
 ];
